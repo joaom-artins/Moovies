@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Movies.Data.Context;
 using Movies.Data.Repositories.Utils;
+using Movies.Services.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
 RegisterData.Register(builder);
+RegisterServices.Register(builder);
 
 builder.Services.AddControllersWithViews();
 
