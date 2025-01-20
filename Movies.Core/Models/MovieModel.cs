@@ -1,6 +1,6 @@
 ﻿namespace Movies.Core.Models;
 
-public class MoovieModel
+public class MovieModel
 {
     public Guid Id { get; private set; }
     public string Title { get; private set; } = string.Empty;
@@ -8,7 +8,7 @@ public class MoovieModel
     public double Stars { get; private set; }
     public int VoteNumbers { get; private set; }
 
-    public MoovieModel(string title, string synopsis, double stars, int voteNumbers)
+    public MovieModel(string title, string synopsis, double stars, int voteNumbers)
     {
         SetTitle(title);
         SetSynopsis(synopsis);
