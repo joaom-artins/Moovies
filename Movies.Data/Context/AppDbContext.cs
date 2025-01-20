@@ -8,6 +8,7 @@ namespace Movies.Data.Context;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<UserModel, IdentityRole<Guid>,Guid>(options)
 {
     public override DbSet<UserModel> Users { get; set; } = default!;
+    public DbSet<MoovieModel> Moovies { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
