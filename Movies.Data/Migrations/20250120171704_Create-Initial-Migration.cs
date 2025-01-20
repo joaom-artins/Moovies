@@ -7,26 +7,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movies.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateInitialData : Migration
+    public partial class CreateInitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Moovies",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Synopsis = table.Column<string>(type: "text", nullable: false),
-                    Stars = table.Column<double>(type: "double precision", nullable: false),
-                    VoteNumbers = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Moovies", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
@@ -102,6 +87,31 @@ namespace Movies.Data.Migrations
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Comments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Movies",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Synopsis = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false),
+                    Stars = table.Column<double>(type: "double precision", nullable: false),
+                    VoteNumbers = table.Column<int>(type: "integer", nullable: false),
+                    Gender = table.Column<int>(type: "integer", nullable: false),
+                    Author = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
+                    MediaByUser = table.Column<double>(type: "double precision", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Movies_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -199,6 +209,11 @@ namespace Movies.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Movies_UserId",
+                table: "Movies",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "Roles",
                 column: "NormalizedName",
@@ -243,7 +258,7 @@ namespace Movies.Data.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Moovies");
+                name: "Movies");
 
             migrationBuilder.DropTable(
                 name: "RolesClaim");

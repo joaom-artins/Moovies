@@ -179,29 +179,47 @@ namespace Movies.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Movies.Core.Models.MoovieModel", b =>
+            modelBuilder.Entity("Movies.Core.Models.MovieModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("MediaByUser")
+                        .HasColumnType("double precision");
 
                     b.Property<double>("Stars")
                         .HasColumnType("double precision");
 
                     b.Property<string>("Synopsis")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(1024)
+                        .HasColumnType("character varying(1024)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("VoteNumbers")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Moovies");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("Movies.Core.Models.UserModel", b =>
@@ -321,6 +339,17 @@ namespace Movies.Data.Migrations
                 });
 
             modelBuilder.Entity("Movies.Core.Models.CommentModel", b =>
+                {
+                    b.HasOne("Movies.Core.Models.UserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Movies.Core.Models.MovieModel", b =>
                 {
                     b.HasOne("Movies.Core.Models.UserModel", "User")
                         .WithMany()
