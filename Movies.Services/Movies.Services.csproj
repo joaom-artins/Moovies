@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.3.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Movies.Core\Movies.Core.csproj" />
     <ProjectReference Include="..\Movies.Data\Movies.Data.csproj" />
   </ItemGroup>
