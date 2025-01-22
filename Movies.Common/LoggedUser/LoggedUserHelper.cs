@@ -1,11 +1,10 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Movies.Common.LoggedUser.Interfaces;
-using Movies.Core.Models;
 
 namespace Movies.Common.LoggedUser
 {
-    public class LoggedUser(
+    public class LoggedUserHelper(
         IHttpContextAccessor _httpContextAccesor
     ) : ILoggedUser
     {

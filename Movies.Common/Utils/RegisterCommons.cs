@@ -9,7 +9,9 @@ namespace Movies.Common.Utils
     {
         public static void Register(WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<ILoggedUser, LoggedUser.LoggedUser>();
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddScoped<ILoggedUser, LoggedUserHelper>();
         }
     }
 }

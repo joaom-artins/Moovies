@@ -16,14 +16,17 @@ public class MovieModel
     public int VoteNumbers { get; private set; }
     public MovieGender Gender { get; private set; }
     [MaxLength(60)]
-    public string Author { get; set; } = string.Empty;
-    public double MediaByUser { get; set; }
+    public string Author { get; private set; } = string.Empty;
+    public double MediaByUser { get; private set; }
+    public DateOnly ReleaseDate { get; private set; }
+    [MaxLength(256)]
+    public string ImageUrl { get; private set; } = string.Empty;
 
     public MovieModel()
     {
     }
 
-    public MovieModel(UserModel user,string title, string synopsis, double stars, int voteNumbers, MovieGender gender, string author, double mediaByUser)
+    public MovieModel(UserModel user,string title, string synopsis, double stars, int voteNumbers, MovieGender gender, string author, double mediaByUser, DateOnly date, string url)
     {
         SetUSer(user);
         SetTitle(title);
@@ -33,6 +36,8 @@ public class MovieModel
         SetGender(gender);
         SetAuthor(author);
         SetMediaByUser(mediaByUser);
+        SetReleaseDate(date);   
+        SetImageUrl(url);
     }
 
     public void SetTitle(string title)
@@ -73,5 +78,15 @@ public class MovieModel
     public void SetMediaByUser(double mediaByUser)
     {
         MediaByUser = mediaByUser;
+    }
+
+    public void SetReleaseDate(DateOnly date)
+    {
+        ReleaseDate = date;
+    }
+
+    public void SetImageUrl(string url)
+    {
+        ImageUrl = url;
     }
 }
