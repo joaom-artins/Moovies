@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Movies.Core.Models.Base;
 using Movies.Data.Context;
 using Movies.Data.Repositories.Generic.Interfaces;
 
