@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Movies.Core.Models.Base;
 
 namespace Movies.Core.Models
 {
-    public class CommentModel
+    public class CommentModel : BaseEntity
     {
         public Guid Id { get; private set; }
         public Guid UserId { get; private set; }
