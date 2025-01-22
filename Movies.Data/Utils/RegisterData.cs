@@ -6,14 +6,14 @@ using Movies.Data.Context;
 using Movies.Data.Repositories.Interfaces;
 using Movies.Data.Repositories.Repository;
 
-namespace Movies.Data.Repositories.Utils
+namespace Movies.Data.Utils
 {
-    public  class RegisterData
+    public class RegisterData
     {
         public static void Register(WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
             builder.Services.AddDbContext<AppDbContext>(options =>

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Movies.Common\Movies.Common.csproj" />
     <ProjectReference Include="..\Movies.Services\Movies.Services.csproj" />
   </ItemGroup>
 
