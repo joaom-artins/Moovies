@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Movies.Data.Context;
 using Movies.Data.Repositories.Interfaces;
 using Movies.Data.Repositories.Repository;
+using Movies.Data.UnitOfWork.Interfaces;
 
 namespace Movies.Data.Utils
 {
@@ -12,6 +13,8 @@ namespace Movies.Data.Utils
     {
         public static void Register(WebApplicationBuilder builder)
         {
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
+
             builder.Services.AddScoped<IMovieRepository, MovieRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
