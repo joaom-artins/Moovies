@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Movies.Core.Models;
 using Movies.Core.Requests.Users;
-using Movies.Data.Repositories.Interfaces;
+using Movies.Data.Repositories.Repository.User;
 
 namespace Movies.Services.Services.User;
 
 public class UserService(
     IUserRepository _userRepository,
     UserManager<UserModel> _userManager
-)
+) : IUserService
 {
     public async Task<bool> CreateAsync(UserCreateRequest request)
     {
