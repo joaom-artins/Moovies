@@ -1,6 +1,6 @@
 ﻿using Movies.Core.Requests.Users;
 
-namespace Movies.Services.Services.User;
+namespace Movies.Services.Services.User.Interfaces;
 
 public interface IUserService
 {

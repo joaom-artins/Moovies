@@ -2,6 +2,6 @@
 
 public interface INotificationContext
 {
-    void AddNotification(string message, string type);
+    void AddNotification(string title, string message);
     void AddNotifications(IEnumerable<NotificationMessage> notifications);
 }
