@@ -17,13 +17,13 @@ public class UserService(
             return false;
         }
 
-        var existsEmail = await _userRepository.GetByEmailAsync(request.Email);
+        var existsEmail = await _userRepository.GetByGenericPropertyAsync("Email",request.Email);
         if (existsEmail != null)
         {
             return false;
         }
 
-        var existsUserName = await _userRepository.GetByUsernameAsync(request.UserName);
+        var existsUserName = await _userRepository.GetByGenericPropertyAsync("USerName",request.UserName);
         if (existsUserName != null)
         {
             return false;
