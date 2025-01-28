@@ -1,12 +1,20 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Movies.Common.Utils;
+using Movies.Core.Models;
 using Movies.Data.Context;
 using Movies.Data.Utils;
+using Movies.Services.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
 RegisterData.Register(builder);
+RegisterServices.Register(builder);
 RegisterCommons.Register(builder);
+
+builder.Services.AddIdentity<UserModel, IdentityRole<Guid>>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews();
 

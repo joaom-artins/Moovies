@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Movies.Core.Models;
 using Movies.Core.Requests.Users;
-using Movies.Data.Repositories.Repository.User.Interface;
 using Movies.Services.Services.User.Interfaces;
 using Movies.Common.Notification.Interfcaes;
 using Movies.Common.Notification;
+using Movies.Data.Repositories.Generic.Interfaces;
+using Movies.Data.Repositories.Repository.User.Interface;
 
 namespace Movies.Services.Services.User;
 
