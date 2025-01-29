@@ -19,14 +19,14 @@ public class UserService(
     {
         if(request.Password != request.ConfirmPassword)
         {
-            _notificationContext.AddNotification(Titles.InvalidRequisition, Messages.User.PasswordAreDifferents);
+            _notificationContext.AddNotification(Titles.InvalidRequisition, Messages.User.PasswordAreDifferents, NotificationType.Erro);
             return false;
         }
 
         var existsEmail = await _userRepository.GetByGenericPropertyAsync("Email",request.Email);
         if (existsEmail != null)
         {
-            _notificationContext.AddNotification(Titles.Conflict,Messages.User.EmailExists);
+            _notificationContext.AddNotification(Titles.Conflict,Messages.User.EmailExists, NotificationType.Erro);
 
             return false;
         }
@@ -34,7 +34,7 @@ public class UserService(
         var existsUserName = await _userRepository.GetByGenericPropertyAsync("UserName",request.UserName);
         if (existsUserName != null)
         {
-            _notificationContext.AddNotification(Titles.Conflict, Messages.User.UsernameExists);
+            _notificationContext.AddNotification(Titles.Conflict, Messages.User.UsernameExists, NotificationType.Erro);
 
             return false;
         }
@@ -47,7 +47,7 @@ public class UserService(
 
         if (!result.Succeeded)
         {
-            _notificationContext.AddNotification(Titles.InvalidRequisition, Messages.User.ErrorInCreate);
+            _notificationContext.AddNotification(Titles.InvalidRequisition, Messages.User.ErrorInCreate, NotificationType.Erro);
 
             return false;
         }
@@ -57,7 +57,7 @@ public class UserService(
         var role = await _userManager.AddToRoleAsync(user!, "user");
         if(!role.Succeeded)
         { 
-            _notificationContext.AddNotification(Titles.InvalidRequisition, Messages.User.ErrorInCreate);
+            _notificationContext.AddNotification(Titles.InvalidRequisition, Messages.User.ErrorInCreate, NotificationType.Erro);
 
             return false;
         }

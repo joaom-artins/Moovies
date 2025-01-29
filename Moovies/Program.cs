@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Moovies.Utils.Filters;
+using Movies.Common.Notification.Interfcaes;
 using Movies.Common.Utils;
 using Movies.Core.Models;
 using Movies.Data.Context;
@@ -12,11 +14,17 @@ RegisterData.Register(builder);
 RegisterServices.Register(builder);
 RegisterCommons.Register(builder);
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddIdentity<UserModel, IdentityRole<Guid>>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<NotificationActionFilter>();
+
+builder.Services.AddControllersWithViews(options =>
+    options.Filters.AddService<NotificationActionFilter>()
+);
 
 var app = builder.Build();
 
