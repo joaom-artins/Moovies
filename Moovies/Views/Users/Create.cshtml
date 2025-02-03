@@ -71,8 +71,6 @@
 
                         for (var key in errors) {
                             var errorMessage = errors[key].join("<br>");
-
-                            // Adiciona erro abaixo do input correspondente
                             $('#' + key).after('<div class="text-danger">' + errorMessage + '</div>');
                         }
                     } else {
