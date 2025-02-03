@@ -14,5 +14,6 @@ public static class Messages
         public static readonly string UsernameExists = "Esse nome de usuário já está em uso!";
         public static readonly string PasswordAreDifferents = "As senhas são diferentes!";
         public static readonly string ErrorInCreate = "Erro ao criar usuário!";
+        public static readonly string InvalidLogin = "Email ou senha estão errados!";
     }
 }
