@@ -39,7 +39,7 @@
     </div>
     <script>
         $('#createUserForm').on('submit', function(e) {
-            e.preventDefault(); 
+            e.preventDefault();
 
             var formData = {
                 Email: $('#Email').val(),
@@ -48,6 +48,10 @@
                 ConfirmPassword: $('#ConfirmPassword').val()
             };
 
+            // Limpa mensagens anteriores
+            $('.text-danger').remove();
+            $('#responseMessage').html("");
+
             $.ajax({
                 url: '/Users/Create',
                 method: 'POST',
@@ -55,19 +59,24 @@
                 data: JSON.stringify(formData),
                 success: function(response) {
                     $('#responseMessage').html('<div class="alert alert-success"><p>' + response.message + '</p></div>');
+                    setTimeout(function () {
+                        window.location.href = "/Home/Index";
+                    }, 2000);
                 },
                 error: function(xhr) {
-                    $('#responseMessage').html("");
                     console.log("Resposta do erro:", xhr.responseJSON);
+
                     if (xhr.responseJSON && xhr.responseJSON.errors) {
-                        xhr.responseJSON.errors.forEach(function(notification) {
-                            $('#responseMessage').append(
-                                '<div class="alert alert-danger"><strong>' + notification.title + ':</strong> ' + notification.message + '</div>'
-                            );
-                        });
+                        let errors = xhr.responseJSON.errors;
+
+                        for (var key in errors) {
+                            var errorMessage = errors[key].join("<br>");
+
+                            // Adiciona erro abaixo do input correspondente
+                            $('#' + key).after('<div class="text-danger">' + errorMessage + '</div>');
+                        }
                     } else {
-                         $('#responseMessage').append('<div class="alert alert-success"><p>Usuário criado com sucesso.</p></div>');
-                         window.location.href = "/Home/Index";
+                        $('#responseMessage').append('<div class="alert alert-danger"><p>Erro ao processar a solicitação.</p></div>');
                     }
                 }
             });
