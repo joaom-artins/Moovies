@@ -37,7 +37,7 @@ namespace Moovies.Controllers
                 return BadRequest(new { errors = notifications });
             }
 
-            return Ok(new { message = "Usuário criado com sucesso!", type = "success" });
+            return RedirectToAction("Home","Index");
         }
     }
 }
