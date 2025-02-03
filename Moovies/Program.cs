@@ -1,9 +1,12 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Moovies.Utils.Filters;
 using Movies.Common.Notification.Interfcaes;
 using Movies.Common.Utils;
 using Movies.Core.Models;
+using Movies.Core.Requests.Users;
 using Movies.Data.Context;
 using Movies.Data.Utils;
 using Movies.Services.Utils;
@@ -21,10 +24,19 @@ builder.Services.AddIdentity<UserModel, IdentityRole<Guid>>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<NotificationActionFilter>();
+builder.Services.AddScoped<ValidationFilter>();
 
 builder.Services.AddControllersWithViews(options =>
     options.Filters.AddService<NotificationActionFilter>()
 );
+
+builder.Services.AddControllersWithViews(options =>
+    options.Filters.AddService<ValidationFilter>()
+);
+
+
+ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
+builder.Services.AddValidatorsFromAssemblyContaining<UserCreateRequest>();
 
 var app = builder.Build();
 
