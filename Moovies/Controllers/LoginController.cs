@@ -18,15 +18,22 @@ public class LoginController(
         return View(request);
     }
 
-    public async Task<IActionResult> Login([FromBody]LoginRequest request)
+    [HttpPost]
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            return View(request);
+            return BadRequest(new
+            {
+                errors = ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage)
+            });
         }
 
         var result = await _loginService.LoginAsync(request);
-        if(result is null)
+
+        if (result is null)
         {
             var notifications = _notificationContext.Notifications.Select(n => new
             {
@@ -37,7 +44,7 @@ public class LoginController(
             return BadRequest(new { errors = notifications });
         }
 
-        return RedirectToAction("Home", "Index");
+        return Ok(new { token = result.Token }); 
     }
 }
 
