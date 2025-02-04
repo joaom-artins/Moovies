@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Moovies.Utils.Filters;
+using Movies.Common;
 using Movies.Common.Notification.Interfcaes;
 using Movies.Common.Utils;
 using Movies.Core.Models;
@@ -12,6 +13,10 @@ using Movies.Data.Utils;
 using Movies.Services.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var appSettingsSection = builder.Configuration.GetRequiredSection("AppSettings");
+builder.Services.Configure<AppSettings>(appSettingsSection);
+var appSettings = appSettingsSection.Get<AppSettings>();
 
 RegisterData.Register(builder);
 RegisterServices.Register(builder);
